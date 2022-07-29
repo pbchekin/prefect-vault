@@ -9,9 +9,9 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - "3.7"
-          - "3.8"
-          - "3.9"
+#          - "3.7"
+#          - "3.8"
+#          - "3.9"
           - "3.10"
       fail-fast: false
     steps:
@@ -23,6 +23,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: requirements*.txt
+
+      - name: Install Vault
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y gpg
+          wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg >/dev/null
+          gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt-get update -y
+          sudo apt-get install -y vault
 
       - name: Install dependencies
         run: |
