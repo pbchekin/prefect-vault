@@ -1,9 +1,6 @@
 from prefect import flow
 
-from prefect_vault.tasks import (
-    goodbye_prefect_vault,
-    hello_prefect_vault,
-)
+from prefect_vault.tasks import goodbye_prefect_vault, hello_prefect_vault
 
 
 def test_hello_prefect_vault():
