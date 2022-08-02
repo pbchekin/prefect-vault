@@ -48,6 +48,6 @@ plugins:
 
 nav:
     - Home: index.md
-    - Tasks: tasks.md
-    - Flows: flows.md
+    - Auth: auth.md
+    - Secret: secret.md
 

@@ -22,23 +22,49 @@ Install `prefect-vault` with `pip`:
 pip install prefect-vault
 ```
 
-### Write and run a flow
+### Create and use VaultSecret block with token authentication
 
 ```python
 from prefect import flow
-from prefect_vault.tasks import (
-    goodbye_prefect_vault,
-    hello_prefect_vault,
-)
+from prefect_vault import VaultSecret, VaultToken 
 
 
 @flow
-def example_flow():
-    hello_prefect_vault
-    goodbye_prefect_vault
+def use_vault_secret():
+    vault_secret = VaultSecret(
+        vault_auth=VaultToken(
+            vault_url='http://myvault:8200',
+            token='my_secret_token',
+        ),
+    )
+    secret_value = vault_secret.get_secret('path/to/my/secret')['secret_key']
 
-example_flow()
+
+use_vault_secret()
 ```
+
+### Create and use VaultSecret block with approle authentication
+
+```python
+from prefect import flow
+from prefect_vault import VaultAppRole, VaultSecret 
+
+
+@flow
+def use_vault_secret():
+    vault_secret = VaultSecret(
+        vault_auth=VaultAppRole(
+            vault_url='http://myvault:8200',
+            role_id='my_role_id',
+            secret_id='my_secret_id',
+        ),
+    )
+    secret_value = vault_secret.get_secret('path/to/my/secret')['secret_key']
+
+
+use_vault_secret()
+```
+
 
 ## Resources
 
