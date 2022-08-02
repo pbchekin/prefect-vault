@@ -14,6 +14,8 @@ class VaultAuth(Block):
     See https://www.vaultproject.io/docs/auth.
     """
 
+    _logo_url = "https://raw.githubusercontent.com/hashicorp/vault/main/ui/public/vault-logo.svg"  # noqa
+
     vault_url: str
 
     @abstractmethod
