@@ -50,9 +50,10 @@ class VaultAppRole(VaultAuth):
 
     def vault_client(self) -> hvac.Client:
         """Returns Vault client."""
-        return hvac.Client(
-            url=self.vault_url,
+        client = hvac.Client(url=self.vault_url)
+        client.auth.approle.login(
             role_id=self.role_id,
             secret_id=self.secret_id.get_secret_value(),
             mount_point=self.mount_point,
         )
+        return client

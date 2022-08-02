@@ -38,7 +38,29 @@ jobs:
         run: |
           vault server -dev -dev-root-token-id=unsafe-root-token &
           export VAULT_ADDR='http://127.0.0.1:8200'
+          
+          # Make sure Vault is running
           while ! vault token lookup; do sleep 1; done
+          
+          # Enable AppRole auth method
+          vault auth enable approle
+          
+          # Create a new policy
+          cat <<EOF | vault policy write prefect-vault -
+          path "secret/data/*" {
+            capabilities = ["create", "read", "update", "patch", "delete", "list"]
+          }
+          EOF
+          
+          # Create a new AppRole
+          vault write auth/approle/role/prefect-vault token_policies=prefect-vault
+          
+          cat <<EOF > ./prefect-vault.env
+          export PREFECT_VAULT_ADDR=http://127.0.0.1:8200
+          export PREFECT_VAULT_TOKEN=unsafe-root-token
+          export PREFECT_VAULT_ROLE_ID=$(vault read auth/approle/role/prefect-vault/role-id -format=json | jq -r .data.role_id)
+          export PREFECT_VAULT_SECRET_ID=$(vault write -f auth/approle/role/prefect-vault/secret-id -format=json | jq -r .data.secret_id)
+          EOF
 
       - name: Install dependencies
         run: |
@@ -49,5 +71,6 @@ jobs:
         env:
           PREFECT_ORION_DATABASE_CONNECTION_URL: "sqlite+aiosqlite:///./orion-tests.db"
         run: |
+          source ./prefect-vault.env
           coverage run --branch -m pytest tests -vv
           coverage report
