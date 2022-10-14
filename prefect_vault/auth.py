@@ -24,7 +24,7 @@ class VaultAuth(Block):
 
 
 class VaultToken(VaultAuth):
-    """ "HashiCorp Vault token.
+    """HashiCorp Vault token.
 
     See https://www.vaultproject.io/docs/auth/token.
     """
@@ -39,7 +39,7 @@ class VaultToken(VaultAuth):
 
 
 class VaultAppRole(VaultAuth):
-    """ "HashiCorp Vault token.
+    """HashiCorp Vault token.
 
     See https://www.vaultproject.io/docs/auth/approle.
     """
