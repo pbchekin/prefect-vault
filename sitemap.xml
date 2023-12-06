@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://pbchekin.github.io/prefect-vault/</loc>
-         <lastmod>2023-10-05</lastmod>
+         <lastmod>2023-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pbchekin.github.io/prefect-vault/auth/</loc>
-         <lastmod>2023-10-05</lastmod>
+         <lastmod>2023-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pbchekin.github.io/prefect-vault/secret/</loc>
-         <lastmod>2023-10-05</lastmod>
+         <lastmod>2023-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
