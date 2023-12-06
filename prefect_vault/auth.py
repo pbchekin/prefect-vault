@@ -5,7 +5,14 @@ from abc import abstractmethod
 
 import hvac
 from prefect.blocks.core import Block
-from pydantic import SecretStr
+from pydantic.version import VERSION as PYDANTIC_VERSION
+
+HAS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
+
+if HAS_PYDANTIC_V2:
+    from pydantic.v1 import SecretStr
+else:
+    from pydantic import SecretStr
 
 
 class VaultAuth(Block):
