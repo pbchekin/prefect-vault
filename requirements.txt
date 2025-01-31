@@ -1,2 +1,2 @@
-prefect>=2.0.0
+prefect>=3.0.0
 hvac>=0.11.2
