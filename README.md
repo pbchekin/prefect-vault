@@ -8,7 +8,7 @@ Prefect blocks for HashiCorp Vault.
 
 ### Python setup
 
-Requires an installation of Python 3.7+.
+Requires an installation of Python 3.9+.
 
 We recommend using a Python virtual environment manager such as pipenv, conda or virtualenv.
 
