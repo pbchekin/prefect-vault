@@ -50,6 +50,7 @@ jobs:
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true
+          attestations: false
 
   build-and-publish-docs:
     name: Build and publish docs
